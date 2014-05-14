@@ -1,11 +1,10 @@
-﻿public class HelloWorld {
+public class HelloWorld {
+    public void sayHello() {
+	System.out.println("Hello World");
+    }
 
-	public class sayHello() {
-		System.out.println("HELLO GIT HUB!");
-	}
-
-	public static void main(String[] args) {
-		HelloWorld h = new HelloWorld;
-		h.sayHello();
-	}
+    public static void main(String[] args) {
+	HelloWorld h = new HelloWorld();
+	h.sayHello();
+    }
 }

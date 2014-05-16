@@ -1,6 +1,6 @@
 public class HelloWorld {
     public void sayHello() {
-	System.out.println("Hello World");
+	System.out.println("Hello GitGub World");
     }
 
     public static void main(String[] args) {

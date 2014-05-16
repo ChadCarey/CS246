@@ -1,6 +1,7 @@
 public class HelloWorld {
     public void sayHello() {
 	System.out.println("Hello GitGub");
+	System.out.println("Test");
 
     }
 

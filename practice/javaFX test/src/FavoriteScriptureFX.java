@@ -1,6 +1,7 @@
 
 
-import java.awt.Font;
+import java.util.Collections;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,10 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
@@ -60,17 +57,17 @@ public class FavoriteScriptureFX extends Application {
         
         // sort button
         Button sortBtn = new Button("sort");
-        sortBtn.setOnAction(new EventHandle<ActionEvent>() {
+        sortBtn.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
         	public void handle(ActionEvent e) {
-        		
+        		Collections.sort(scripList);
         	}
         });
         grid.add(sortBtn, 3, 1);
         
         // remove button
         Button removeBtn = new Button("remove");
-        removeBtn.setOnAction(new EventHandle<ActionEvent>() {
+        removeBtn.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
         	public void handle(ActionEvent e) {
         		
@@ -80,7 +77,7 @@ public class FavoriteScriptureFX extends Application {
         
         // save button
         Button saveBtn = new Button("save");
-        saveBtn.setOnAction(new EventHandle<ActionEvent>() {
+        saveBtn.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
         	public void handle(ActionEvent e) {
         		

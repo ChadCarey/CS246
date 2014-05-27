@@ -1,0 +1,10 @@
+
+public class Remote {
+    Light light1;
+    Light light2;
+    
+    static void main(String[] args) {
+	Remote r = new Remote();
+	r.run;
+    }
+}

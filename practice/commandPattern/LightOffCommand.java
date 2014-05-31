@@ -9,6 +9,6 @@ public class LightOnCommand implements Command {
     }
 
     public void execute() {
-	light.turnOn();
+	light.turnOff();
     }
 }

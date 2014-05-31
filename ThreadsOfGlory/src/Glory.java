@@ -1,6 +1,5 @@
-import java.util.Collections;
-import java.util.List;
 
+import java.util.HashMap;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,17 +9,42 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Glory extends Application {
 
+	private static Glory instance;
 	private ListView <String> runnablesList;
 	private ListView <String> runningThreads;
+	private HashMap <String, Thread> threads;
 	private TextField entry;
+	private Stage primaryStage;
 	
-	public void start(Stage primaryStage) throws Exception {
+	public Glory() {
+		if(instance == null) {
+			instance = this;
+			threads = new HashMap<String,Thread>();
+			primaryStage = new Stage();
+		}
+	}
+	
+	public Stage getPrimaryStage() {
+		return primaryStage;
+	}
+	
+	public static Glory getInstance() {
+		return instance;
+	}
+	
+	public Thread getThread() {
+		return Thread.currentThread();
+	}
+	
+	public void start(Stage p) throws Exception {
+		primaryStage = p;
 		primaryStage.setTitle("Threads of Glory");
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -49,15 +73,19 @@ public class Glory extends Application {
 		// runnable text box
 		entry = new TextField();
 		grid.add(entry, 1, 0);
-		// add button
+		
+		//add button
 		Button addBtn = new Button(" Add ");
 		addBtn.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
         	public void handle(ActionEvent e) {
         		String input = entry.getText();
+        		entry.clear();
         		try {
         			Runnable r = (Runnable)Class.forName(input).newInstance();
-        			runnablesList.getItems().add(input);
+        			if (!runnablesList.getItems().contains(input)) {
+        				runnablesList.getItems().add(input);
+        			}
         		} catch (Exception ex) {
         			System.out.println("Not a Runnable");
         		}
@@ -79,6 +107,7 @@ public class Glory extends Application {
 					thr.start();
 					thr.setName(str + "_" + thr.getName());
 					runningThreads.getItems().add(thr.getName());
+					threads.put(thr.getName(), thr);
 				} catch (Exception ex) {
 					System.out.println("Error starting runnable \'" + str + "\'");
 				}
@@ -91,11 +120,11 @@ public class Glory extends Application {
 		stop.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				System.out.println("you pressed the stop button!");
+				String selection = runningThreads.getSelectionModel().getSelectedItem();
+				killThread(selection);
 			}
 		});
-		grid.add(stop, 4, 9);
-		
+		grid.add(stop, 4, 9);		
 		
 		// this should be last, it sets the scene after you build it
 		Scene scene = new Scene(grid, 650, 400);
@@ -103,4 +132,12 @@ public class Glory extends Application {
 		primaryStage.show();
 	}
 
+	public void killThread(String selection) {
+		runningThreads.getItems().remove(selection);
+		Thread thr = threads.get(selection);
+		if(thr.isAlive()){
+			thr.interrupt();
+		}
+		threads.remove(selection);		
+	}
 }

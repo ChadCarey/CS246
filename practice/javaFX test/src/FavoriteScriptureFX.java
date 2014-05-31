@@ -1,6 +1,7 @@
 
 
 import java.util.Collections;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -18,7 +19,7 @@ import javafx.stage.Stage;
 
 
 public class FavoriteScriptureFX extends Application {
-    
+	ListView<String> scripList;
     @Override
     public void start(Stage primaryStage) {
     	primaryStage.setTitle("Scriptures");
@@ -37,7 +38,7 @@ public class FavoriteScriptureFX extends Application {
         grid.add(entry, 0, 1);
         
         // list
-        final ListView<String> scripList = new ListView<String>();
+        scripList = new ListView<String>();
         grid.add(scripList,  2,  1, 1, 4);
         
         // add the add button
@@ -60,7 +61,7 @@ public class FavoriteScriptureFX extends Application {
         sortBtn.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
         	public void handle(ActionEvent e) {
-        		Collections.sort(scripList);
+				Collections.sort(scripList.getItems());
         	}
         });
         grid.add(sortBtn, 3, 1);

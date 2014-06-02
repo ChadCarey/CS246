@@ -3,6 +3,11 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * This will randomly color the user interface as long as the thread is running
+ * @author chad
+ *
+ */
 public class ColorInterface implements Runnable {
 	
 	private Stage pStage;

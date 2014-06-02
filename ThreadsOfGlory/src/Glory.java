@@ -14,6 +14,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * Glory is a thread controller interface for runnable items
+ * @author chad
+ *
+ */
 public class Glory extends Application {
 
 	private static Glory instance;
@@ -23,6 +28,9 @@ public class Glory extends Application {
 	private TextField entry;
 	private Stage primaryStage;
 	
+	/**
+	 * Constructor, will create the static glory class only if it hasn't been created
+	 */
 	public Glory() {
 		if(instance == null) {
 			instance = this;
@@ -31,18 +39,32 @@ public class Glory extends Application {
 		}
 	}
 	
+	/**
+	 * returns the primary stage
+	 * @return
+	 */
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
 	
+	/**
+	 * returns the static instance of Glory
+	 * @return
+	 */
 	public static Glory getInstance() {
 		return instance;
 	}
 	
+	/**
+	 * @return the main thread
+	 */
 	public Thread getThread() {
 		return Thread.currentThread();
 	}
 	
+	/**
+	 * Starts and creates the main user interface
+	 */
 	public void start(Stage p) throws Exception {
 		primaryStage = p;
 		primaryStage.setTitle("Threads of Glory");
@@ -132,6 +154,10 @@ public class Glory extends Application {
 		primaryStage.show();
 	}
 
+	/**
+	 * This will kill the thread indicated by the string input
+	 * @param selection
+	 */
 	public void killThread(String selection) {
 		runningThreads.getItems().remove(selection);
 		Thread thr = threads.get(selection);
@@ -139,5 +165,9 @@ public class Glory extends Application {
 			thr.interrupt();
 		}
 		threads.remove(selection);		
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
 	}
 }

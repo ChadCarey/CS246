@@ -1,4 +1,8 @@
-
+/**
+ * This just counts how long the thread has bee running
+ * @author chad
+ *
+ */
 public class Counter implements Runnable {
 	
 	public void run() {
@@ -16,6 +20,10 @@ public class Counter implements Runnable {
 		}
 	}
 	
+	/**
+	 * Main is just for testing purposes
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Counter c = new Counter();
 		c.run();
